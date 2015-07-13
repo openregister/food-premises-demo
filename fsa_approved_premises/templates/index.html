@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <header>
+    <div class="row">
+      <div class="large-6 columns">
+        <h1>Find an approved meat premises</h1>
+      </div>
+      <div class="large-3 columns large-offset-3">
+        <p><a href="#">Download all contents in the EU approved XML format</a></p>
+      </div>
+    </div>
+  </header>
+
+  <main id="content" role="main">
+    <div class="row">
+
+      <div id="search-filters">
+        <div class="large-4 columns">
+          <p>You can use the filters to show only results that match your interests</p>
+          <fieldset class="filters">
+            <label for="search">Search</label>
+            <input id="search" type="text" />
+            <label for="filter">Section type</label>
+            <select id="filter">
+              <option>Select from list</option>
+              <option>Section 0</option>
+              <option>Section I</option>
+              <option>Section II</option>
+              <option>Section III</option>
+              <option>Section IV</option>
+              <option>Section V</option>
+              <option>Section VI</option>
+              <option>Section VII</option>
+              <option>Section VIII</option>
+              <option>Section IX</option>
+              <option>Section X</option>
+              <option>Section XI</option>
+              <option>Section XII</option>
+              <option>Section XIII</option>
+              <option>Section XV</option>
+            </select>
+          </fieldset>
+        </div>
+      </div>
+
+      <div id="premises">
+        <div class="large-8 columns">
+          <p id="count">{{ data.meta.total_entries }}</p>
+          <ul id="premises-list">
+            {% for premises in data.entries %}
+            <li><a href="#">{{premises.entry.name}}</a></li>
+            {% endfor %}
+          </ul>
+          <nav id="show-more-documents" role="navigation">
+            <ul class="previous-next-navigation">
+              <li class="next">
+                <a href="#?page=2">Next <span class="visuallyhidden">page</span> <span class="page-numbers">1 of 50</span></a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="row">
+      <div class="large-12 columns">
+        <p>This page uses data from open registers.</p>
+        <ul class="accordion" data-accordion>
+          <li class="accordion-navigation">
+            <a href="#registers">View the registers</a>
+            <div id="registers" class="content">
+             <ul>
+                <li><a href="http://premises.openregister.org">http://premises.openregister.org</a></li>
+                <li><a href="http://product-of-animal-origin-premises.openregister.org">http://product-of-animal-origin-premises.openregister.org</a></li>
+              <ul>
+            </div>
+          </li>
+        </ul>
+        <p><a href="#">Is there anything wrong with the data on this page?</a></p>
+      </div>
+    </div>
+  </footer>
+{% endblock %}

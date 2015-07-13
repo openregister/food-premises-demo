@@ -1,0 +1,118 @@
+body {
+  font: helvetica neue, arial;
+  background-color: none;
+  line-height: 1.5;
+  font-weight: 400;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#top-bar-wrapper {
+  background-color: #2D7E3F;
+  height: 90px
+}
+
+.top-bar {
+  background-color: inherit;
+}
+
+#logo-wrapper {
+  margin: 0 auto;
+  max-width: 62.5rem;
+  width: 100%;
+  padding: 15px;
+}
+
+header {
+  margin: 50px 0;
+}
+
+p#count {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+}
+
+fieldset.filters {
+  border: 2px solid #DDD;
+  margin: 0 25px 10px 0;
+  padding: 1rem !important;
+}
+
+#premises {
+
+}
+
+#premises-list li {
+  list-style: none;
+  border-top: solid 1px #000;
+  line-height: 2.75rem;
+}
+
+#premises-list {
+  margin: 0 !important;
+}
+
+#premises-list a {
+  font-weight: bold;
+}
+
+.previous-next-navigation li.previous a {
+  padding: 15px 0 15px 35px;
+}
+
+
+footer p,
+footer li,
+footer a {
+  font-size: 0.9rem;
+}
+
+footer p {
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+ul.accordion {
+  margin: 0;
+}
+
+.accordion .accordion-navigation > a {
+  padding: 0;
+  background: inherit;
+  display: block;
+  font-size: inherit;
+  color: #008CBA !important;
+}
+
+.accordion .accordion-navigation > a:hover {
+  background: inherit;
+}
+
+.accordion .accordion-navigation ul,
+.accordion .accordion-navigation li {
+  list-style: none;
+}
+
+.accordion .accordion-navigation.active > a {
+  background: inherit;
+}
+
+#registers {
+  margin-top: 10px;
+  border-left: 5px solid #e3e3e3;
+  padding: 5px 10px 5px 0px;
+}
+
+@media only screen and (min-width: 40.063em) and (max-width: 64em)  {
+  fieldset.filters {
+    margin: 1.125rem 0;
+  }
+}
+
+@media only screen and (max-width: 40em) {
+  fieldset.filters {
+    margin: 1.125rem 0;
+  }
+}
