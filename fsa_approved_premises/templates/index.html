@@ -1,4 +1,6 @@
-{% block head %}
+{% extends "base.html" %}
+
+{% block head_end %}
   {% raw %}
     <script id="premises-template" type="text/x-jsrender">
       <li><a href="/premises/{{:premisesId}}">{{:premisesName}}</a></li>
@@ -6,7 +8,6 @@
   {% endraw %}
 {% endblock %}
 
-{% extends "base.html" %}
 {% block content %}
 
   <header>
