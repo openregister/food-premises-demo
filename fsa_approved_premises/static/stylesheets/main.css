@@ -72,6 +72,11 @@ fieldset.filters {
 
 }
 
+footer ul,
+footer li {
+  list-style: none;
+}
+
 #premises-list li {
   list-style: none;
   border-top: solid 1px #000;
