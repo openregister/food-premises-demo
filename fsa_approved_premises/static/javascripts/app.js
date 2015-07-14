@@ -1,47 +1,46 @@
 var fetchRecords = function(input) {
     var searchTerm = input.value;
-    if(searchTerm.length >= 3) {
-        doSearch(searchTerm)
-    } else {
-        reload();
-    }
-}
+    doSearch(searchTerm);
+};
+
+var noResults = function(){
+    $("#results").show();
+    $("#loading").hide();
+    $('#count span').text('0');
+    $('#premises-list').empty();
+};
 
 var doSearch = function(searchTerm) {
+    $("#results").hide();
+    $("#loading").show();
     $.ajax({
       type: 'GET',
       url: "/search?query="+searchTerm,
       success: function(data) {
         $('#premises-list').empty();
-        $('#count').text(data.entries.length);
-        $.each(data.entries, function(index, item){
-            var item = $('<li><a href="#">'+ item.entry.name +'</a></li>');
-            $('#premises-list').append(item);
+        $("#loading").hide();
+        $("#results").show();
+        if(searchTerm.length == 0){
+          $('#count span').text(data.meta.total_entries);
+        } else {
+          $('#count span').text(data.entries.length);
+        }
+        var template = $.templates("#premises-template");
+        $.each(data.entries, function(index, item) {
+            var html = template.render({
+                'premisesId': item.entry.premises,
+                'premisesName': item.entry.name
+            });
+            $('#premises-list').append(html);
         });
       },
-      error: function(){
-        console.log("error");
-      }
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        console.log('status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText);
+        noResults();
+      },
     });
 };
 
-var reload = function() {
-    $.ajax({
-      type: 'GET',
-      url: "search",
-      success: function(data) {
-        $('#premises-list').empty();
-        $('#count').text(data.meta.total_entries);
-        $.each(data.entries, function(index, item) {
-            var item = $('<li><a href="#">'+ item.entry.name +'</a></li>');
-            $('#premises-list').append(item);
-        });
-      },
-      error: function(){
-        console.log("error");
-      }
-    });
-};
 
 var pager = function(event) {
   event.preventDefault();
@@ -52,11 +51,21 @@ var pager = function(event) {
     url: "/search?query="+searchTerm+"&page="+page,
     success: function(data) {
       $('#premises-list').empty();
-      $('#count').text(data.meta.total_entries);
       $('#page-number').text(data.meta.page+1);
+
+      if(searchTerm.length == 0){
+        $('#count span').text(data.meta.total_entries);
+      } else {
+        $('#count span').text(data.entries.length);
+      }
+
+      var template = $.templates("#premises-template");
       $.each(data.entries, function(index, item) {
-          var item = $('<li><a href="#">'+ item.entry.name +'</a></li>');
-          $('#premises-list').append(item);
+          var html = template.render({
+              'premisesId': item.entry.premises,
+              'premisesName': item.entry.name
+          });
+          $('#premises-list').append(html);
       });
     },
     error: function(){

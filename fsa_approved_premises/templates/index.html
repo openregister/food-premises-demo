@@ -1,3 +1,11 @@
+{% block head %}
+  {% raw %}
+    <script id="premises-template" type="text/x-jsrender">
+      <li><a href="/premises/{{:premisesId}}">{{:premisesName}}</a></li>
+    </script>
+  {% endraw %}
+{% endblock %}
+
 {% extends "base.html" %}
 {% block content %}
 
@@ -7,7 +15,7 @@
         <h1>Find an approved meat premises</h1>
       </div>
       <div class="large-3 columns large-offset-3">
-        <p><a href="#">Download all contents in the EU approved XML format</a></p>
+        <p class="download"><a href="#">Download all contents in the EU approved XML format</a></p>
       </div>
     </div>
   </header>
@@ -46,12 +54,19 @@
 
       <div id="premises">
         <div class="large-8 columns">
-          <p id="count">{{ data.meta.total_entries }}</p>
+          <div id="results">
+            <p id="count"><span>{{ data.meta.total_entries }}</span> premises</p>
+          </div>
+          <div id="loading" style="display:none">
+            <p>Loading results&hellip;</p>
+          </div>
+
           <ul id="premises-list">
             {% for premises in data.entries %}
-            <li><a href="#">{{premises.entry.name}}</a></li>
+            <li><a href="/premises/{{premises.entry.premises}}">{{premises.entry.name}}</a></li>
             {% endfor %}
           </ul>
+
           <nav id="show-more-documents" role="navigation">
             <ul class="previous-next-navigation">
               <li class="next">
@@ -59,29 +74,11 @@
               </li>
             </ul>
           </nav>
+
         </div>
       </div>
 
     </div>
   </main>
-
-  <footer>
-    <div class="row">
-      <div class="large-12 columns">
-        <p>This page uses data from open registers.</p>
-        <ul class="accordion" data-accordion>
-          <li class="accordion-navigation">
-            <a href="#registers">View the registers</a>
-            <div id="registers" class="content">
-             <ul>
-                <li><a href="http://premises.openregister.org">http://premises.openregister.org</a></li>
-                <li><a href="http://product-of-animal-origin-premises.openregister.org">http://product-of-animal-origin-premises.openregister.org</a></li>
-              <ul>
-            </div>
-          </li>
-        </ul>
-        <p><a href="#">Is there anything wrong with the data on this page?</a></p>
-      </div>
-    </div>
-  </footer>
+  {% include "footer.html" %}
 {% endblock %}

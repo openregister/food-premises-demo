@@ -9,6 +9,7 @@
   <script type="text/javascript" src="{{ url_for('static', filename='vendor/jquery/dist/jquery.min.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='vendor/foundation/js/foundation.min.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='vendor/jquery.cookie/jquery.cookie.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='vendor/jsrender/jsrender.min.js') }}"></script>
 
   {% block head_end %}{% endblock %}
 </head>
@@ -17,7 +18,7 @@
   <div id="top-bar-wrapper">
     <nav class="top-bar" role="navigation">
       <div id="logo-wrapper">
-        <a href="{{url_for('frontend.index')}}"><img src="static/images/logo.png"/></a>
+        <a href="{{url_for('frontend.index')}}"><img src="/static/images/logo.png"/></a>
       </div>
     </nav>
   </div>
