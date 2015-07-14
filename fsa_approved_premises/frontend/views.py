@@ -59,4 +59,4 @@ def premises(id):
     except requests.exceptions.HTTPError as e:
         current_app.logger.info(e)
         abort(resp.status_code)
-    return render_template('premises.html', premises=premises, poao_premises=poao_premises, address=address)
+    return render_template('premises.html', poao_premises_register=poao_premises_register, premises=premises, poao_premises=poao_premises, address=address)
