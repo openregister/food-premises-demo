@@ -68,10 +68,6 @@ fieldset.filters {
   padding-top: 10px;
 }
 
-#premises {
-
-}
-
 footer ul,
 footer li {
   list-style: none;
@@ -96,7 +92,7 @@ footer li {
 }
 
 footer {
-  margin-bottom: 50px;
+  margin: 50px 0px;
 }
 
 footer p,
