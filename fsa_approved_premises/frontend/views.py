@@ -7,12 +7,12 @@ from flask import (
     abort
 )
 
+
 import requests
 
 frontend = Blueprint('frontend', __name__, template_folder='templates')
 
 headers = {"Content-type": "application/json"}
-
 
 @frontend.route('/')
 def index():
@@ -22,6 +22,7 @@ def index():
     if resp.status_code != 200:
         abort(resp.status_code)
     return render_template('index.html', data=resp.json())
+
 
 @frontend.route('/search')
 def search():
@@ -34,6 +35,7 @@ def search():
         abort(resp.status_code)
     current_app.logger.info(resp.json())
     return jsonify(resp.json())
+
 
 @frontend.route('/premises/<int:id>')
 def premises(id):
@@ -51,7 +53,7 @@ def premises(id):
         resp.raise_for_status()
         poao_premises = resp.json()
 
-        address_url = '%s/address/%d.json' %(address_register, id)
+        address_url = '%s/address/%d.json' % (address_register, id)
         resp = requests.get(address_url, headers=headers)
         resp.raise_for_status()
         address = resp.json()

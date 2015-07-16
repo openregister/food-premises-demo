@@ -18,6 +18,7 @@ def create_app(config_filename):
     app.config.from_object(config_filename)
     register_errorhandlers(app)
     register_blueprints(app)
+    register_extensions(app)
     app.context_processor(asset_path_context_processor)
     return app
 
@@ -34,5 +35,17 @@ def register_blueprints(app):
     from fsa_approved_premises.frontend.views import frontend
     app.register_blueprint(frontend)
 
-# def register_extensions(app):
-#     pass
+def register_extensions(app):
+    from redis import Redis
+    import requests
+    import requests_cache
+    from urllib.parse import urlparse
+
+    redis_url = app.config.get('REDIS_URL')
+    if redis_url:
+        url = urlparse(redis_url)
+        cache = Redis(host=url.hostname, port=url.port, password=url.password)
+    else:
+        cache = Redis() # local dev default
+
+    requests_cache.install_cache('registers_cache', backend='redis', expire_after=300, connection=cache)

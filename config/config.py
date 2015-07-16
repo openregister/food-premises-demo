@@ -8,6 +8,7 @@ class Config(object):
     PREMISES_REGISTER = os.environ.get('PREMISES_REGISTER')
     POAO_PREMISES_REGISTER = os.environ.get('POAO_PREMISES_REGISTER')
     ADDRESS_REGISTER = os.environ.get('ADDRESS_REGISTER')
+    REDIS_URL = os.environ.get('REDISCLOUD_URL')
 
 class DevelopmentConfig(Config):
     DEBUG = True
