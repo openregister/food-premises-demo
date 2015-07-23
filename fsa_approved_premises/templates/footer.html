@@ -1,8 +1,5 @@
   <footer>
     <div class="row">
-
-      {{premises}}
-
       <div class="large-12 columns">
         <p>This page uses data from open registers.</p>
         <ul class="accordion" data-accordion>
@@ -11,7 +8,7 @@
             <div id="registers" class="content">
              <ul>
                 <li><a href="http://premises.openregister.org{% if premises %}/premises/{{premises.entry.premises}}{% endif %}">premises register</a></li>
-                <li><a href="http://products-of-animal-origin-premises.openregister.org">products of animal origin premises</a></li>
+                <li><a href="http://products-of-animal-origin-premises.openregister.org{% if premises %}/premises/{{premises.entry.premises}}{% endif %}">products of animal origin premises</a></li>
                 <li><a href="http://products-of-animal-origin-section.openregister.org/">products of animal origin section</a></li>
                 <li><a href="http://products-of-animal-origin-activity.openregister.org/">products of animal origin activity</a></li>
               <ul>
