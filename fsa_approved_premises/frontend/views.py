@@ -7,12 +7,21 @@ from flask import (
     abort
 )
 
+import jinja2
 
 import requests
 
 frontend = Blueprint('frontend', __name__, template_folder='templates')
 
 headers = {"Content-type": "application/json"}
+
+@jinja2.contextfilter
+@frontend.app_template_filter()
+def format_link(context, value):
+    items = value.split(':')
+    register = current_app.config['POAO_SECTION_REGISTER']
+    return "<a href='%s/products-of-animal-origin-section/%s'>%s</a> %s" % (register, items[0],items[0],items[1])
+
 
 @frontend.route('/')
 def index():

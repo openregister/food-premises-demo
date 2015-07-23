@@ -51,7 +51,7 @@
       <div class="large-8 large-offset-1 columns">
         <ul>
         {% for activity in poao_premises.entry['products-of-animal-origin-activities'] %}
-          <li>{{activity}}</li>
+          <li>{{ activity|format_link|safe }}</li>
         {% endfor %}
         </ul>
       </div>
