@@ -1,3 +1,7 @@
+import collections
+import jinja2
+import requests
+
 from flask import (
     current_app,
     Blueprint,
@@ -6,10 +10,6 @@ from flask import (
     jsonify,
     abort
 )
-
-import jinja2
-
-import requests
 
 frontend = Blueprint('frontend', __name__, template_folder='templates')
 
@@ -63,9 +63,7 @@ def premises(id):
         resp.raise_for_status()
         poao_premises = resp.json()
 
-        for c in poao_premises['entry']['food-establishment-categories']:
-            current_app.logger.info(c)
-            #TODO fetch section and activity keys
+        category_details = _get_category_details(poao_premises)
 
         address_url = '%s/address/%d.json' % (address_register, id)
         resp = requests.get(address_url, headers=headers)
@@ -75,4 +73,43 @@ def premises(id):
     except requests.exceptions.HTTPError as e:
         current_app.logger.info(e)
         abort(resp.status_code)
-    return render_template('premises.html', poao_premises_register=poao_premises_register, premises=premises, poao_premises=poao_premises, address=address)
+    return render_template('premises.html',
+                           poao_premises_register=poao_premises_register,
+                           premises=premises, poao_premises=poao_premises,
+                           address=address,
+                           category_details=category_details,
+                           food_category_register=food_category_register)
+
+
+Category = collections.namedtuple('Category', 'category_key, section_name, activity_name')
+
+
+# This sort of stuff is a mess.
+def _get_category_details(premises):
+    category_details = []
+    try:
+        for category in premises['entry']['food-establishment-categories']:
+            section_key, activity_key = category.split(':')
+            section_url = "%s/products-of-animal-origin-section/%s.json" % (current_app.config['POAO_SECTION_REGISTER'], section_key)
+            activity_url = "%s/products-of-animal-origin-activity/%s.json" % (current_app.config['POAO_ACTIVITY_REGISTER'], activity_key)
+
+            section_resp = requests.get(section_url, headers=headers)
+            activity_resp = requests.get(activity_url, headers=headers)
+
+            section_resp.raise_for_status()
+            activity_resp.raise_for_status()
+
+            section = section_resp.json()['entry']
+            activity = activity_resp.json()['entry']
+            category = Category(category_key=category,
+                                section_name=section['name'],
+                                activity_name=activity['name'])
+            category_details.append(category)
+        current_app.logger.info(category_details)
+
+    except requests.exceptions.HTTPError as e:
+        current_app.logger.info(e)
+        current_app.logger.info('Not much we can do at this point but return empty category_details')
+
+    return category_details
+

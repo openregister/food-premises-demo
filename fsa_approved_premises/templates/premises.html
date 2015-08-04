@@ -48,10 +48,12 @@
       <div class="large-3 columns">
         <h2 class="heading-medium">Food sector sections approved for this premises</h2>
       </div>
-      <div class="large-4 large-offset-1 columns end">
+      <div class="large-5 large-offset-1 columns end">
         <ul>
-        {% for category in poao_premises.entry['food-establishment-categories'] %}
-          <li>{{ category }}</li>
+        {% for category in category_details %}
+          <li><a href="{{food_category_register}}/food-establishment-category/{{ category.category_key }}">{{ category.category_key }}</a>
+              <ul><li>{{ category.section_name }} - {{ category.activity_name }}</li></ul>
+          </li>
         {% endfor %}
         </ul>
       </div>
