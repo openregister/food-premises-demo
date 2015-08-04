@@ -51,6 +51,7 @@ def premises(id):
     premises_register = current_app.config['PREMISES_REGISTER']
     poao_premises_register = current_app.config['POAO_PREMISES_REGISTER']
     address_register = current_app.config['ADDRESS_REGISTER']
+    food_category_register = current_app.config['FOOD_ESTABLISHMENT_CATEGORY_REGISTER']
     try:
         premises_url = '%s/premises/%d.json' % (premises_register, id)
         resp = requests.get(premises_url, headers=headers)
@@ -61,6 +62,10 @@ def premises(id):
         resp = requests.get(poao_premises_url, headers=headers)
         resp.raise_for_status()
         poao_premises = resp.json()
+
+        for c in poao_premises['entry']['food-establishment-categories']:
+            current_app.logger.info(c)
+            #TODO fetch section and activity keys
 
         address_url = '%s/address/%d.json' % (address_register, id)
         resp = requests.get(address_url, headers=headers)

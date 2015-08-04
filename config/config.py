@@ -9,6 +9,7 @@ class Config(object):
     POAO_PREMISES_REGISTER = os.environ.get('POAO_PREMISES_REGISTER')
     POAO_SECTION_REGISTER = os.environ.get('POAO_SECTION_REGISTER')
     ADDRESS_REGISTER = os.environ.get('ADDRESS_REGISTER')
+    FOOD_ESTABLISHMENT_CATEGORY_REGISTER = os.environ.get('FOOD_ESTABLISHMENT_CATEGORY_REGISTER')
     REDIS_URL = os.environ.get('REDISCLOUD_URL')
 
 class DevelopmentConfig(Config):
